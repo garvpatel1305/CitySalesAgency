@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Sales Agency - Feedback</title>
+    
+    <link rel="icon" href="C:\Users\Admin\OneDrive\文档\html\city logo.jpg" type="image/jpeg">
+    
+    <style>
+        /* Basic CSS for styling the page */
+        body
+        {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative; 
+            overflow-x: hidden;
+        }
+        .container
+        {
+            padding: 0 20px;
+            flex-grow: 1;
+            position: relative; 
+            z-index: 1;
+            
+            /* --- NEW: Added for centering the form --- */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        header
+        {
+            color:#000080;
+            padding: 20px;
+            text-align: center;
+            /* --- NEW: Make header full-width --- */
+            width: 100%;
+        }
+        header h1
+        {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* --- Navigation Menu --- */
+        nav {
+            margin-top: 15px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        nav li {
+            display: inline-block;
+        }
+        nav a {
+            text-decoration: none;
+            color: #005a9c;
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover,
+        nav a:focus {
+            background-color: #005a9c;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .nav-active {
+            background-color: #005a9c;
+            color: #ffffff;
+        }
+        /* --- End of Navigation Menu --- */
+        
+        section
+        {
+            padding: 25px;
+            /* --- MODIFIED: Removed border-bottom --- */
+        }
+        section:last-child
+        {
+            border-bottom: none;
+        }
+        h2
+        {
+            color: #005a9c;
+            border-bottom: 2px solid #005a9c;
+            padding-bottom: 5px;
+            /* --- NEW --- */
+            text-align: center;
+            margin-top: 0;
+        }
+
+        /* --- MODIFIED: Feedback Form Section --- */
+        .feedback-form {
+            width: 100%;
+            max-width: 600px; /* Constrain form width */
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+            /* --- NEW: Form Load Animation --- */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+        
+        /* Keyframes for the load animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-form p {
+            text-align: center;
+            margin-top: -5px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        
+        /* --- NEW: Floating Label Styling --- */
+        .feedback-form .form-group {
+            position: relative; /* Required for floating label */
+            margin-bottom: 30px; 
+        }
+
+        .feedback-form .form-group label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1rem;
+            color: #999;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            background: #ffffff; /* Ensures it covers the input line */
+            padding: 0 5px;
+        }
+
+        .feedback-form .form-group input,
+        .feedback-form .form-group textarea {
+            width: 100%;
+            padding: 12px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+            font-size: 1rem;
+            outline: none; /* Remove default outline */
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .feedback-form .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* The floating label animation */
+        .feedback-form .form-group input:focus + label,
+        .feedback-form .form-group input:valid + label,
+        .feedback-form .form-group textarea:focus + label,
+        .feedback-form .form-group textarea:valid + label {
+            top: -10px; /* Move label up */
+            left: 8px;
+            font-size: 0.85em;
+            color: #005a9c; /* Highlight color */
+        }
+
+        /* Input focus animation */
+        .feedback-form .form-group input:focus,
+        .feedback-form .form-group textarea:focus {
+            border-color: #005a9c;
+            box-shadow: 0 0 0 3px rgba(0, 90, 156, 0.15);
+        }
+        
+        /* --- MODIFIED: Button Styling & Animation --- */
+        .feedback-form button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            width: 100%; /* Make button full-width */
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .feedback-form button:hover {
+            background-color: #218838;
+            /* --- NEW: Hover Animation --- */
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- NEW: Success Message Styling --- */
+        #successMessage {
+            display: none; /* Hidden by default */
+            text-align: center;
+            padding: 40px;
+        }
+        #successMessage h3 {
+            color: #28a745;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        #successMessage p {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        /* --- Bubble Animation (Unchanged) --- */
+        .bubble-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image: linear-gradient(to bottom, #d1e7ff, #f4f4f4);
+        }
+        .bubble {
+            position: absolute;
+            bottom: -10vh;
+            font-size: 2em;
+            opacity: 0.6;
+            animation: rise linear infinite;
+        }
+        @keyframes rise {
+            0% {
+                transform: translateY(0vh) translateX(0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-50vh) translateX(20px) scale(1.1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) translateX(-20px) scale(0.9);
+                opacity: 0;
+            }
+        }
+        .bubble:nth-child(3n + 1)::before { content: '💬'; }
+        .bubble:nth-child(3n + 2)::before { content: '💭'; }
+        .bubble:nth-child(3n + 0)::before { content: '💡'; }
+        .bubble:nth-child(1) { left: 15%; animation-duration: 18s; animation-delay: -3s; font-size: 1.8em; }
+        .bubble:nth-child(2) { left: 30%; animation-duration: 14s; animation-delay: -8s; }
+        .bubble:nth-child(3) { left: 45%; animation-duration: 20s; animation-delay: -5s; font-size: 2.2em; }
+        .bubble:nth-child(4) { left: 60%; animation-duration: 16s; animation-delay: -1s; }
+        .bubble:nth-child(5) { left: 75%; animation-duration: 19s; animation-delay: -10s; font-size: 1.9em; }
+        .bubble:nth-child(6) { left: 5%; animation-duration: 15s; animation-delay: -7s; }
+        .bubble:nth-child(7) { left: 25%; animation-duration: 17s; animation-delay: -4s; font-size: 2.1em; }
+        .bubble:nth-child(8) { left: 55%; animation-duration: 13s; animation-delay: -12s; }
+        .bubble:nth-child(9) { left: 85%; animation-duration: 21s; animation-delay: -6s; font-size: 1.7em; }
+        /* --- End of Bubble Animation --- */
+
+
+        /* Footer */
+        footer
+        {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+            position: relative; 
+            z-index: 1;
+            /* --- NEW: Make footer full-width --- */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bubble-container">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <div class="container">
+        
+        <header>
+            <h1>City Sales Agency</h1>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="feedback.html" class="nav-active">Feedback</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="feedback" class="feedback-form">
+            <h2>Give Us Your Feedback</h2>
+            <p>We would love to hear from you!</p>
+            
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" required>
+                    <label for="name">Your Name:</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required>
+                    <label for="email">Your Email:</label>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="message" name="message" required></textarea>
+                    <label for="message">Feedback / Message:</label>
+                </div>
+                
+                <button type="submit">Submit Feedback</button>
+            </form>
+
+            <div id="successMessage">
+                <h3>Thank You! 🌟</h3>
+                <p>Your feedback has been received. We'll get back to you soon.</p>
+            </div>
+        </section>
+
+    </div> <footer>
+        <p>&copy; 2025 City Sales Agency. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            // 1. Prevent the default form submission (which reloads the page)
+            event.preventDefault(); 
+            
+            // Get the form and the success message elements
+            const form = document.getElementById('feedbackForm');
+            const successMsg = document.getElementById('successMessage');
+
+            // 2. Hide the form (you could add a fade-out animation here)
+            form.style.display = 'none';
+            
+            // 3. Show the success message with its own animation
+            successMsg.style.display = 'block';
+            successMsg.style.opacity = 0;
+            successMsg.style.transform = 'translateY(20px)';
+            
+            // We use a tiny timeout to ensure the browser applies the 'display: block'
+            // before starting the transition.
+            setTimeout(() => {
+                successMsg.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                successMsg.style.opacity = 1;
+                successMsg.style.transform = 'translateY(0)';
+            }, 10);
+
+            // In a real application, you would send the data to a server here.
+        });
+    </script>
+
+</body>
+</html>

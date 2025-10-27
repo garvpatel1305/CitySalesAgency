@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Sales Agency - Home</title>
+    
+    <link rel="icon" href="C:\Users\Admin\OneDrive\文档\html\city logo.jpg" type="image/jpeg">
+    
+    <style>
+        /* Basic CSS for styling the page */
+        body
+        {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            position: relative; /* Added for stacking context */
+            overflow-x: hidden; /* Added to prevent horizontal scroll */
+            
+            /* --- Animated Background --- */
+            background: linear-gradient(270deg, #d1e9ff, #e0f2fe, #ebf8ff);
+            background-size: 400% 400%;
+            animation: animateGradient 15s ease infinite;
+        }
+        
+        /* --- Keyframe for background animation --- */
+        @keyframes animateGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container
+        {
+            margin: 0; 
+            padding: 0 20px;
+            position: relative; 
+            z-index: 1; 
+            min-height: 100vh;
+            box-sizing: border-box; /* Ensures padding is included in height */
+        }
+        header
+        {
+            background-color: #005a9c; 
+            color: #FFFFFF;
+            padding: 20px;
+        }
+        
+        /* --- Container for logo and h1 --- */
+        .header-top-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* --- Style for the header logo --- */
+        .header-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        header h1
+        {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* --- Navigation Menu --- */
+        nav {
+            margin-top: 15px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        nav li {
+            display: inline-block;
+        }
+        nav a {
+            text-decoration: none;
+            color: #FFFFFF; 
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover,
+        nav a:focus {
+            background-color: #FFFFFF;
+            color: #005a9c;
+            text-decoration: none;
+        }
+        .nav-active {
+            background-color: #FFFFFF;
+            color: #005a9c;
+        }
+        /* --- End of Navigation Menu --- */
+        
+        section
+        {
+            padding: 25px;
+            border-bottom: 1px solid #eeeeee;
+            /* Added to make sure content stands out on gradient */
+            background-color: rgba(255, 255, 255, 0.5);
+            margin: 20px 0; /* Add some space between sections */
+            border-radius: 8px;
+        }
+        /* Style the first section differently (the welcome) */
+        .welcome-section {
+            background-color: transparent; /* Make welcome blend in */
+            margin: 0;
+            border-radius: 0;
+            text-align: center;
+            padding: 40px 25px;
+        }
+        section:last-child
+        {
+            border-bottom: none;
+        }
+        h2
+        {
+            color: #005a9c;
+            border-bottom: 2px solid #005a9c;
+            padding-bottom: 5px;
+            text-align: center; /* Center all section headings */
+            margin-bottom: 25px; /* Add space below headings */
+        }
+
+        /* --- Home Page Welcome Section --- */
+        .welcome-section p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .cta-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+        .cta-secondary {
+            background-color: #6c757d;
+        }
+        .cta-secondary:hover {
+            background-color: #5a6268;
+        }
+        /* --- End of Home Page Styles --- */
+
+        /* --- NEW: "Why Choose Us" Grid --- */
+        .features-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .feature-item {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            flex-basis: 250px; /* Each item will be at least 250px wide */
+            flex-grow: 1;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-item:hover {
+            transform: translateY(-5px); /* Lifts the card up */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .feature-item h3 {
+            color: #005a9c;
+            margin-bottom: 10px;
+        }
+        /* --- End of "Why Choose Us" --- */
+
+        /* --- NEW: "Featured Products" Grid --- */
+        .products-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .product-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            flex-basis: 250px;
+            flex-grow: 1;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .product-icon {
+            font-size: 4em; /* Make product icons bigger */
+            margin-bottom: 15px;
+        }
+        .product-card h3 {
+            color: #005a9c;
+            margin-bottom: 10px;
+        }
+        /* --- End of "Featured Products" --- */
+
+
+        /* --- Flower Animation --- */
+        .flower-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .flower {
+            position: absolute;
+            top: -10vh;
+            font-size: 1.5em;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0vh) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        .flower:nth-child(4n + 1)::before { content: '🌸'; }
+        .flower:nth-child(4n + 2)::before { content: '🌼'; }
+        .flower:nth-child(4n + 3)::before { content: '🌺'; }
+        .flower:nth-child(4n + 0)::before { content: '🌷'; }
+        .flower:nth-child(1) { left: 10%; animation-duration: 15s; animation-delay: -2s; font-size: 1.2em; }
+        .flower:nth-child(2) { left: 20%; animation-duration: 10s; animation-delay: -10s; }
+        .flower:nth-child(3) { left: 30%; animation-duration: 18s; animation-delay: -5s; font-size: 1.3em; }
+        .flower:nth-child(4) { left: 40%; animation-duration: 12s; animation-delay: -12s; }
+        .flower:nth-child(5) { left: 50%; animation-duration: 20s; animation-delay: -3s; font-size: 1.1em; }
+        .flower:nth-child(6) { left: 60%; animation-duration: 11s; animation-delay: -8s; }
+        .flower:nth-child(7) { left: 70%; animation-duration: 16s; animation-delay: -1s; font-size: 1.4em; }
+        .flower:nth-child(8) { left: 80%; animation-duration: 13s; animation-delay: -6s; }
+        .flower:nth-child(9) { left: 90%; animation-duration: 19s; animation-delay: -14s; font-size: 1.2em; }
+        .flower:nth-child(10) { left: 5%; animation-duration: 14s; animation-delay: -7s; }
+        .flower:nth-child(11) { left: 25%; animation-duration: 17s; animation-delay: -4s; font-size: 1.3em; }
+        .flower:nth-child(12) { left: 75%; animation-duration: 11s; animation-delay: -11s; }
+        /* --- End of Flower Animation --- */
+
+
+        /* Footer */
+        footer
+        {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="flower-container">
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+    </div>
+    <div class="container">
+        
+        <header>
+            <div class="header-top-line">
+                <img src="C:\Users\Admin\OneDrive\文档\html\city logo.jpg" alt="City Sales Agency Logo" class="header-logo">
+                <h1>City Sales Agency</h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-active">Home</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="home" class="welcome-section">
+            <h2>Welcome to City Sales Agency</h2>
+            <p>
+                Your one-stop shop for premium dairy products in Surat. 
+                We are proud to offer the highest quality paneer, butter, and cheese from brands you trust.
+            </p>
+            <div class="cta-container">
+                <a href="products.html" class="cta-button">View Our Products</a>
+                <a href="contact.html" class="cta-button cta-secondary">Get In Touch</a>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2>Why Choose Us?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"> We provide 100% </div> <h3>Guaranteed Freshness</h3>
+                    <p>We source our products daily to ensure you get the best quality every time.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"> Vimal Dairy </div> <h3>Trusted Brands</h3>
+                    <p>We partner with the most reputable and beloved dairy brands in the industry.</p>
+                </div>
+            	<div class="products-grid">
+                    <div class="product-card">
+                    <div class="product-icon"> Product </div> <h3>Fresh Paneer</h3>
+                    <p>Soft, creamy, and perfect for all your delicious culinary creations.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 City Sales Agency. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

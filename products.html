@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Sales Agency - Our Products</title>
+
+    <link rel="icon" href="C:\Users\Admin\OneDrive\文档\html\city logo.jpg" type="image/jpg">
+    
+    <style>
+        body
+        {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+            
+            /* --- ADDED Animated Background (from other pages) --- */
+            background: linear-gradient(270deg, #d1e9ff, #e0f2fe, #ebf8ff);
+            background-size: 400% 400%;
+            animation: animateGradient 15s ease infinite;
+        }
+
+        /* --- Keyframe for background animation --- */
+        @keyframes animateGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- ADDED Header Styling (from other pages) --- */
+        header
+        {
+            background-color: #005a9c; 
+            color: #FFFFFF;
+            padding: 20px;
+        }
+        .header-top-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .header-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        header h1
+        {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* --- ADDED Nav Styling (from other pages) --- */
+        nav 
+        {
+            margin-top: 15px;
+        }
+        nav ul 
+        {
+            list-style: none; 
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; 
+            gap: 15px; 
+        }
+        nav li 
+        {
+            display: inline-block;
+        }
+        nav a 
+        {
+            text-decoration: none;
+            color: #FFFFFF; /* Changed to white */
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover,
+        nav a:focus {
+            background-color: #FFFFFF; /* Inverted hover */
+            color: #005a9c;
+            text-decoration: none;
+        }
+        .nav-active {
+            background-color: #FFFFFF; /* Inverted active */
+            color: #005a9c;
+        } 
+
+        /* --- ADDED Container (from other pages) --- */
+        .container
+        {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative; 
+            z-index: 1;
+            box-sizing: border-box;
+            min-height: 100vh;
+        }
+        
+        section
+        {
+            padding: 25px;
+            border-bottom: none;
+            background-color: rgba(255, 255, 255, 0.9); /* Made more opaque */
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        h2
+        {
+            color: #005a9c;
+            border-bottom: 2px solid #005a9c;
+            padding-bottom: 5px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* --- NEW: Product Grid Styling --- */
+        .product-list { 
+            list-style: none; 
+            padding-left: 0;
+            display: grid;
+            /* Creates responsive columns: 
+               - Fills the space with columns
+               - Each column is at least 280px wide
+               - All columns are equally sized (1fr)
+            */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* --- NEW: Product Card Styling --- */
+        .product-list li {
+            /* REPLACED border and bg-color with modern card */
+            background: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden; /* Important for the image */
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column; /* Stacks image on top of text */
+        }
+
+        .product-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .product-list img {
+            width: 100%;
+            height: 220px; /* Gives all images a uniform height */
+            object-fit: cover;
+            /* REMOVED margin and radius */
+        }
+        
+        /* NEW: Container for text content in card */
+        .product-info {
+            padding: 20px;
+            flex-grow: 1; /* Ensures text area fills space */
+        }
+        
+        .product-info h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #005a9c;
+            font-size: 1.4em;
+        }
+        
+        .product-info .brand {
+            font-weight: bold;
+            color: #555;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .product-info .description {
+            font-size: 0.95em;
+            color: #333;
+        }
+        /* --- End of Product Card Styles --- */
+
+
+        /* --- Falling Product Animation --- */
+        .falling-products-container {
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .falling-product-image {
+            position: absolute;
+            top: -10vh;
+            width: 60px;
+            height: 60px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0vh) rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* --- WARNING: FIXED LOCAL PATHS --- */
+        /* I replaced your C:\... path with a placeholder. */
+        /* See the note below! */
+
+        .falling-product-image:nth-child(1) { 
+            left: 10%; animation-duration: 15s; animation-delay: -2s; 
+            background-image: url("https://tiimg.tistatic.com/fp/1/007/761/100-percent-raw-fresh-natural-tasty-pure-and-healthy-white-milk-paneer-099.jpg"); 
+            width: 70px; height: 70px;
+        }
+        .falling-product-image:nth-child(2) { 
+            left: 20%; animation-duration: 10s; animation-delay: -10s; 
+            background-image: url("https://www.bbassets.com/media/uploads/p/l/40243903_1-vimal-pasteurised-table-butter-natural-fresh-delicious-creamy.jpg"); 
+        }
+        .falling-product-image:nth-child(3) { 
+            left: 30%; animation-duration: 18s; animation-delay: -5s; 
+            background-image: url("https://5.imimg.com/data5/SELLER/Default/2022/9/TI/TO/MQ/130545553/cheese-1000x1000.png"); 
+            width: 80px; height: 80px;
+        }
+        .falling-product-image:nth-child(4) { 
+            left: 40%; animation-duration: 12s; animation-delay: -5s; 
+            /* REPLACED LOCAL C:\... PATH */
+            background-image: url("https://via.placeholder.com/100x100.png?text=Vimal+Lite");
+        }
+        .falling-product-image:nth-child(5) { 
+            left: 50%; animation-duration: 20s; animation-delay: -3s; 
+            background-image: url("https://tiimg.tistatic.com/fp/1/007/761/100-percent-raw-fresh-natural-tasty-pure-and-healthy-white-milk-paneer-099.jpg"); 
+            width: 65px; height: 65px;
+        }
+        .falling-product-image:nth-child(6) { 
+            left: 60%; animation-duration: 11s; animation-delay: -8s; 
+            background-image: url("https://www.bbassets.com/media/uploads/p/l/40243903_1-vimal-pasteurised-table-butter-natural-fresh-delicious-creamy.jpg"); 
+        }
+        /* --- End of Falling Animation --- */
+        
+        footer
+        {
+            text-align: center;
+            padding: 20px;
+            margin-top: 0;
+            font-size: 0.9em;
+            color: #777;
+            background-color: rgba(244, 244, 244, 0.9);
+            position: relative; /* Added for z-index */
+            z-index: 1; /* Ensures it's above animation */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="falling-products-container">
+        <div class="falling-product-image"></div>
+        <div class="falling-product-image"></div>
+        <div class="falling-product-image"></div>
+        <div class="falling-product-image"></div>
+        <div class="falling-product-image"></div>
+        <div class="falling-product-image"></div>
+    </div>
+
+    <header>
+        <div class="header-top-line">
+            <img src="C:\Users\Admin\OneDrive\文档\html\city logo.jpg" alt="City Sales Agency Logo" class="header-logo">
+            <h1>City Sales Agency</h1>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="products.html" class="nav-active">Products</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <section id="products" class="products">
+            <h2>Our Products</h2>
+            
+            <ul class="product-list">
+                
+                <li>
+                    <img src="https://tiimg.tistatic.com/fp/1/007/761/100-percent-raw-fresh-natural-tasty-pure-and-healthy-white-milk-paneer-099.jpg" alt="Paneer">
+                    <div class="product-info">
+                        <h3>Paneer (1kg)</h3>
+                        <p class="brand">Brand: Vimal Dairy</p>
+                        <p class="description">100% raw, fresh, and natural. Perfect for all your favorite dishes.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <img src="C:\Users\Admin\OneDrive\图片\vimal product\vimal lite.jpg" alt="Vimal Lite">
+                    <div class="product-info">
+                        <h3>Vimal Lite (500g)</h3>
+                        <p class="brand">Brand: Vimal Dairy</p>
+                        <p class="description">A delicious and light butter alternative for a healthier lifestyle.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <img src="https://www.bbassets.com/media/uploads/p/l/40243903_1-vimal-pasteurised-table-butter-natural-fresh-delicious-creamy.jpg" alt="Table Butter">
+                    <div class="product-info">
+                        <h3>Table Butter (500g)</h3>
+                        <p class="brand">Brand: Vimal Dairy</p>
+                        <p class="description">Natural, fresh, and delicious creamy butter for your daily needs.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <img src="https://5.imimg.com/data5/SELLER/Default/2022/9/TI/TO/MQ/130545553/cheese-1000x1000.png" alt="Vimal Cheese">
+                    <div class="product-info">
+                        <h3>Vimal Cheese (1kg)</h3>
+                        <p class="brand">Brand: Vimal Dairy</p>
+                        <p class="description">Rich and tasty cheese block, great for sandwiches, pizza, and more.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <img src="C:\Users\Admin\OneDrive\图片\vimal product\star.jpg" alt="Star Cheese">
+                    <div class="product-info">
+                        <h3>Cheese Star (1kg)</h3>
+                        <p class="brand">Brand: Vimal Dairy</p>
+                        <p class="description">A popular choice for fast-food, known for its excellent melt.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <img src="C:\Users\Admin\OneDrive\图片\vimal product\mojarela star.jpg" alt="Mojarela star">
+                    <div class="product-info">
+                        <h3>Mozzarella Star (1kg)</h3>
+                        <p class="brand">Brand: Vimal Dairy</p>
+                        <p class="description">Classic mozzarella cheese, perfect for getting that perfect pizza pull.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <img src="C:\Users\Admin\OneDrive\图片\vimal product\mozbland.jpg" alt="Mozzarella">
+                    <div class="product-info">
+                        <h3>Mozzarella Blend (1kg)</h3>
+                        <p class="brand">Brand: Vimal Dairy</p>
+                        <p class="description">A special blend of mozzarella and other fine cheeses for superior taste.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <img src="C:\Users\Admin\OneDrive\图片\vimal product\lipilite.jpg" alt="Lipi Lite">
+                    <div class="product-info">
+                        <h3>Lipi Lite (1kg)</h3>
+                        <p class="brand">Brand: Vimal Dairy</p>
+                        <p class="description">Premium quality fat spread, ideal for cafes and restaurants.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <img src="C:\Users\Admin\OneDrive\图片\vimal product\mayo.jpg" alt="Mayonnaise">
+                    <div class="product-info">
+                        <h3>Mayonnaise (1kg)</h3>
+                        <p class="brand">Brand: Vimal Dairy</p>
+                        <p class="description">Creamy and rich eggless mayonnaise for sandwiches and salads.</p>
+                    </div>
+                </li>
+                
+            </ul>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 City Sales Agency. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

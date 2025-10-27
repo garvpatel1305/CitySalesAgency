@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Sales Agency - Contact Us</title>
+    
+    <link rel="icon" href="C:\Users\Admin\OneDrive\文档\html\city logo.jpg" type="image/jpeg">
+    
+    <style>
+        /* Basic CSS for styling the page */
+        body
+        {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh; /* Ensure body takes full height */
+            
+            /* --- RE-ADDED Animated Background --- */
+            background: linear-gradient(270deg, #d1e9ff, #e0f2fe, #ebf8ff);
+            background-size: 400% 400%;
+            animation: animateGradient 15s ease infinite;
+        }
+
+        /* --- Keyframe for background animation --- */
+        @keyframes animateGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container
+        {
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+            /* Added to make content area distinct */
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        header
+        {
+            /* --- RE-APPLIED Homepage Header Theme --- */
+            background-color: #005a9c; 
+            color: #FFFFFF;
+            padding: 20px;
+        }
+
+        /* --- Container for logo and h1 (Copied from homepage) --- */
+        .header-top-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .header-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        header h1
+        {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* --- Navigation Menu (Copied from homepage) --- */
+        nav {
+            margin-top: 15px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        nav li {
+            display: inline-block;
+        }
+        nav a {
+            text-decoration: none;
+            color: #FFFFFF; /* Changed to white */
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover,
+        nav a:focus {
+            background-color: #FFFFFF; /* Inverted hover */
+            color: #005a9c;
+            text-decoration: none;
+        }
+        .nav-active {
+            background-color: #FFFFFF; /* Inverted active */
+            color: #005a9c;
+        }
+        /* --- End of Navigation Menu --- */
+        
+        section
+        {
+            padding: 25px;
+            /* Added background to stand out from animation */
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        h2
+        {
+            color: #005a9c;
+            border-bottom: 2px solid #005a9c;
+            padding-bottom: 5px;
+            text-align: center;
+            margin-top: 0; /* Remove default top margin */
+            margin-bottom: 25px;
+        }
+
+        /* --- NEW: Contact Page Grid Layout --- */
+        .contact-grid {
+            display: flex;
+            flex-wrap: wrap; /* Allows stacking on small screens */
+            gap: 30px;
+        }
+        .contact-details {
+            flex: 1; /* Takes up 1 part of the space */
+            min-width: 300px; /* Ensures it doesn't get too small */
+        }
+        .contact-map {
+            flex: 2; /* Takes up 2 parts, will be wider */
+            min-width: 300px;
+        }
+        /* --- End of Grid Layout --- */
+        
+        /* --- Styles for Contact Info --- */
+        .contact-info p { 
+            margin: 15px 0; 
+            font-size: 1.1em; 
+            line-height: 1.7; /* Added spacing */
+        }
+        .contact-info a { color: #007bff; text-decoration: none; }
+        .contact-info a:hover { text-decoration: underline; }
+        .contact-info strong {
+            display: block; /* Puts "Address:" on its own line */
+            color: #005a9c;
+            margin-bottom: 5px;
+        }
+
+        /* --- QR Code Styles (Slightly adjusted) --- */
+        .qr-code {
+            text-align: left; /* Aligned with address text */
+            margin: 20px 0;
+        }
+        .qr-code img {
+            width: 150px;
+            height: 150px;
+            border: 5px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+        .qr-code p {
+            font-size: 1em;
+            color: #333;
+            margin: 0 0 5px 0; /* Text above QR */
+            font-weight: bold;
+        }
+
+        /* --- NEW: Embedded Map Styles --- */
+        .map-iframe-container {
+            position: relative;
+            width: 100%;
+            /* This 75% sets a 4:3 aspect ratio. Adjust as needed. */
+            padding-bottom: 75%; 
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .map-iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        /* --- End of Map Styles --- */
+
+        /* --- Flower Animation --- */
+        .flower-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .flower {
+            position: absolute;
+            top: -10vh;
+            font-size: 1.5em;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0vh) rotate(0deg); opacity: 0.7; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+        .flower:nth-child(4n + 1)::before { content: '🌸'; }
+        .flower:nth-child(4n + 2)::before { content: '🌼'; }
+        .flower:nth-child(4n + 3)::before { content: '🌺'; }
+        .flower:nth-child(4n + 0)::before { content: '🌷'; }
+        .flower:nth-child(1) { left: 10%; animation-duration: 15s; animation-delay: -2s; font-size: 1.2em; }
+        .flower:nth-child(2) { left: 20%; animation-duration: 10s; animation-delay: -10s; }
+        .flower:nth-child(3) { left: 30%; animation-duration: 18s; animation-delay: -5s; font-size: 1.3em; }
+        .flower:nth-child(4) { left: 40%; animation-duration: 12s; animation-delay: -12s; }
+        .flower:nth-child(5) { left: 50%; animation-duration: 20s; animation-delay: -3s; font-size: 1.1em; }
+        .flower:nth-child(6) { left: 60%; animation-duration: 11s; animation-delay: -8s; }
+        .flower:nth-child(7) { left: 70%; animation-duration: 16s; animation-delay: -1s; font-size: 1.4em; }
+        .flower:nth-child(8) { left: 80%; animation-duration: 13s; animation-delay: -6s; }
+        .flower:nth-child(9) { left: 90%; animation-duration: 19s; animation-delay: -14s; font-size: 1.2em; }
+        .flower:nth-child(10) { left: 5%; animation-duration: 14s; animation-delay: -7s; }
+        .flower:nth-child(11) { left: 25%; animation-duration: 17s; animation-delay: -4s; font-size: 1.3em; }
+        .flower:nth-child(12) { left: 75%; animation-duration: 11s; animation-delay: -11s; }
+        /* --- End of Flower Animation --- */
+
+
+        /* Footer */
+        footer
+        {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #777;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="flower-container">
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+    </div>
+
+    <header>
+        <div class="header-top-line">
+            <img src="C:\Users\Admin\OneDrive\文档\html\city logo.jpg" alt="City Sales Agency Logo" class="header-logo">
+            <h1>City Sales Agency</h1>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html" class="nav-active">Contact Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="contact" class="contact-info">
+            
+            <div class="contact-grid">
+
+                <div class="contact-details">
+                    <h2>Get In Touch</h2>
+                    <p>
+                        <strong>📞 Contact No:</strong> 
+                        <a href="tel:+919925458991">+91 992 545 8991</a>
+                    </p>
+                    
+                    <p>
+                        <strong>📧 Email:</strong> 
+                        <a href="mailto:citysales2006@gmail.com">citysales2006@gmail.com</a>
+                    </p>
+
+                    <p>
+                        <strong>📍 Address:</strong>
+                        GD-3, Om complex, New Bamroli rd<br>
+                        Trupte Nagar, Pandesara GIDC, Surat<br>
+                        Gujarat, India
+                    </p>
+
+                    <div class="qr-code">
+                        <p>Scan for Google Maps:</p>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwww.google.com%2Fmaps%2Fsearch%2F%3Fapi%3D1%26query%3DGD-3%252C%2520Om%2520complex%252C%2520New%2520Bamroli%2520rd%252C%2520Trupte%2520Nagar%252C%2520Pandesara%2520GIDC%252C%2520Surat%252C%2520Gujarat%252C%2520India" alt="QR Code for Google Maps location">
+                    </div>
+                </div>
+
+                <div class="contact-map">
+                    <h2>Our Location</h2>
+                    <div class="map-iframe-container">
+                        <iframe 
+                            src="https://www.google.com/maps?q=GD-3%2C%20Om%20complex%2C%20New%20Bamroli%20rd%2C%20Trupte%20Nagar%2C%20Pandesara%20GIDC%2C%20Surat%2C%20Gujarat%2C%20India&output=embed" 
+                            width="600" 
+                            height="450" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 City Sales Agency. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
